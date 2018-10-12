@@ -13,7 +13,7 @@ def words_count(file_obj):
             words = re.split(r'[\s\r\n,.?:!/“”\-—|]', line)
             for word in words:
                 w = word.lower()
-                if wc.get(w):
+                if w in wc:
                     wc[w] += 1
                 else:
                     wc[w] = 1
@@ -29,6 +29,6 @@ if __name__ == '__main__':
     file = r'D:\show-me-the-code\0004\HPBook1.txt'
     file_obj = open(file, encoding='utf8')
     wc = words_count(file_obj)
-    sorted_wc = sorted(wc, key=lambda item: wc[item], reverse=True)
-    for x in zip(sorted_wc, [wc[x] for x in sorted_wc]):
-        print(x)
+    sorted_wc = sorted(wc.items(), key=lambda item: item[1], reverse=True)
+    for word, count in sorted_wc[:100]:
+        print(word, count)
